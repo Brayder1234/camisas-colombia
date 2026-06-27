@@ -841,16 +841,16 @@ document.querySelectorAll('.q button').forEach(function(btn){
 /* ──────────── TOAST NOTIFICACIONES ──────────── */
 (function(){
   var pedidos = [
-    {nombre:'Carlos M.',    ciudad:'Bogotá',     ini:'CM', msg:'acaba de pedir 1 camiseta talla L',    icon:'🛍️', hace:'hace 2 min'},
-    {nombre:'Laura P.',     ciudad:'Medellín',   ini:'LP', msg:'acaba de pedir 2 camisetas talla M y S',icon:'🎽', hace:'hace 4 min'},
-    {nombre:'Andrés R.',    ciudad:'Cali',       ini:'AR', msg:'acaba de pedir 1 camiseta talla XL',   icon:'🛍️', hace:'hace 6 min'},
-    {nombre:'María T.',     ciudad:'Barranquilla',ini:'MT',msg:'acaba de pedir 3 camisetas',            icon:'🔥', hace:'hace 1 min'},
-    {nombre:'Juan S.',      ciudad:'Bucaramanga',ini:'JS', msg:'acaba de pedir 1 camiseta talla XXL',  icon:'🎽', hace:'hace 3 min'},
-    {nombre:'Valentina G.', ciudad:'Pereira',    ini:'VG', msg:'acaba de pedir 2 camisetas talla S',  icon:'🛍️', hace:'hace 5 min'},
-    {nombre:'Felipe O.',    ciudad:'Cartagena',  ini:'FO', msg:'acaba de pedir 1 camiseta talla M',   icon:'🎽', hace:'hace 7 min'},
-    {nombre:'Daniela C.',   ciudad:'Manizales',  ini:'DC', msg:'acaba de pedir 4 camisetas',           icon:'🔥', hace:'hace 2 min'},
-    {nombre:'Santiago H.',  ciudad:'Bogotá',     ini:'SH', msg:'acaba de pedir 1 camiseta talla L',   icon:'🛍️', hace:'hace 1 min'},
-    {nombre:'Camila V.',    ciudad:'Medellín',   ini:'CV', msg:'acaba de pedir 2 camisetas talla M',  icon:'🎽', hace:'hace 8 min'},
+    {nombre:'Carlos M.',    ciudad:'Bogotá',      ini:'CM'},
+    {nombre:'Laura P.',     ciudad:'Medellín',    ini:'LP'},
+    {nombre:'Andrés R.',    ciudad:'Cali',        ini:'AR'},
+    {nombre:'María T.',     ciudad:'Barranquilla',ini:'MT'},
+    {nombre:'Juan S.',      ciudad:'Bucaramanga', ini:'JS'},
+    {nombre:'Valentina G.', ciudad:'Pereira',     ini:'VG'},
+    {nombre:'Felipe O.',    ciudad:'Cartagena',   ini:'FO'},
+    {nombre:'Daniela C.',   ciudad:'Manizales',   ini:'DC'},
+    {nombre:'Santiago H.',  ciudad:'Bogotá',      ini:'SH'},
+    {nombre:'Camila V.',    ciudad:'Medellín',    ini:'CV'},
   ];
 
   var wrap = document.getElementById('toastWrap');
@@ -868,8 +868,8 @@ document.querySelectorAll('.q button').forEach(function(btn){
       '<div class="toast-avatar">'+p.ini+'</div>'+
       '<div class="toast-body">'+
         '<span class="toast-name">'+p.nombre+' · '+p.ciudad+'</span>'+
-        '<span class="toast-msg">'+p.icon+' '+p.msg+'</span>'+
-        '<span class="toast-time">⏱ '+p.hace+'</span>'+
+        '<span class="toast-msg">🛍️ Acaba de realizar un pedido</span>'+
+        '<span class="toast-time">⏱ ahora mismo</span>'+
       '</div>';
 
     wrap.prepend(toast);
