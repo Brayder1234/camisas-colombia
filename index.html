@@ -438,6 +438,35 @@ footer{
   border-top:1.5px solid var(--line);background:var(--bg-2);
 }
 
+/* ═══════════════ SIZE CHIP SMALL (hero) ═══════════════ */
+.size-chip-sm{
+  padding:5px 13px;border:1.5px solid var(--line-2);border-radius:8px;
+  font-weight:800;font-size:.78rem;cursor:pointer;
+  color:var(--ink-dim);background:#fff;
+  transition:all .2s cubic-bezier(.34,1.56,.64,1);
+  display:inline-block;
+}
+.size-chip-sm:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.1)}
+
+/* ═══════════════ CARRUSEL RESEÑAS ═══════════════ */
+.carousel-wrap{overflow:hidden;position:relative;margin-top:36px}
+.carousel-track{
+  display:flex;gap:18px;
+  transition:transform .5s cubic-bezier(.22,1,.36,1);
+  will-change:transform;
+}
+.carousel-track .review{min-width:300px;flex-shrink:0}
+.carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
+.cdot{width:8px;height:8px;border-radius:50%;background:var(--line-2);
+  cursor:pointer;transition:all .3s ease}
+.cdot.active{background:var(--azul);width:22px;border-radius:4px}
+.carousel-nav{display:flex;justify-content:center;gap:12px;margin-top:16px}
+.cnav{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line-2);
+  background:#fff;cursor:pointer;font-size:1.1rem;
+  display:flex;align-items:center;justify-content:center;
+  transition:all .2s;box-shadow:var(--shadow-sm)}
+.cnav:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.1)}
+
 /* ═══════════════ SCROLL REVEAL ═══════════════ */
 .sr{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
 .sr.left{transform:translateX(-30px)}
@@ -514,6 +543,18 @@ footer{
       </div>
     </div>
 
+    <!-- TALLAS EN EL HERO -->
+    <div style="margin:18px 0 22px;text-align:center">
+      <p style="font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px">👩 Mujer</p>
+      <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
+        <div class="size-chip-sm">S</div><div class="size-chip-sm">M</div><div class="size-chip-sm">L</div><div class="size-chip-sm">XL</div>
+      </div>
+      <p style="font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px">👨 Hombre</p>
+      <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
+        <div class="size-chip-sm">S</div><div class="size-chip-sm">M</div><div class="size-chip-sm">L</div><div class="size-chip-sm">XL</div><div class="size-chip-sm">2XL</div>
+      </div>
+    </div>
+
     <div style="display:flex;flex-direction:column;align-items:center;gap:8px">
       <a class="cta-wa" href="https://wa.me/?text=Hola%2C%20quiero%20pedir%20la%20camiseta%20de%20Colombia%202026%20%F0%9F%87%A8%F0%9F%87%B4" target="_blank" id="heroCta">
         <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.523 5.847L.057 23.57a.5.5 0 0 0 .615.612l5.857-1.535A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.878 9.878 0 0 1-5.031-1.374l-.361-.214-3.741.981.998-3.648-.235-.374A9.87 9.87 0 0 1 2.1 12C2.1 6.534 6.534 2.1 12 2.1c5.466 0 9.9 4.434 9.9 9.9 0 5.466-4.434 9.9-9.9 9.9z"/></svg>
@@ -541,30 +582,9 @@ footer{
 
 <div class="divider"></div>
 
-<!-- ═══ TALLAS ═══ -->
-<section class="s wrap" style="text-align:center">
-  <span class="sec-eyebrow sr">Disponibles ahora</span>
-  <h2 class="sec-title sr">Elige tu talla</h2>
-  <div class="sr" style="margin-bottom:20px">
-    <p style="font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px">👩 Mujer</p>
-    <div class="sizes" style="margin:0 0 16px">
-      <div class="size-chip"><span>S</span></div>
-      <div class="size-chip active"><span>M</span></div>
-      <div class="size-chip"><span>L</span></div>
-      <div class="size-chip"><span>XL</span></div>
-    </div>
-    <p style="font-size:.78rem;font-weight:800;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:10px">👨 Hombre</p>
-    <div class="sizes" style="margin:0">
-      <div class="size-chip"><span>S</span></div>
-      <div class="size-chip"><span>M</span></div>
-      <div class="size-chip"><span>L</span></div>
-      <div class="size-chip"><span>XL</span></div>
-      <div class="size-chip"><span>2XL</span></div>
-    </div>
-  </div>
-  <p style="font-size:.87rem;color:var(--ink-dim)" class="sr">¿No sabes tu talla? Escríbenos por WhatsApp y te ayudamos a elegir.</p>
-
-  <div class="urgency-box sr" style="max-width:500px;margin:32px auto 0">
+<!-- ═══ URGENCY ═══ -->
+<section class="wrap" style="padding:32px 24px;text-align:center">
+  <div class="urgency-box sr" style="max-width:500px;margin:0 auto">
     <div class="u-title">⚠️ Stock casi agotado</div>
     <p>Solo quedan unidades de esta edición especial</p>
     <div class="stock-bar"><div class="stock-fill" id="stockFill"></div></div>
@@ -592,37 +612,63 @@ footer{
 
 <div class="divider"></div>
 
-<!-- ═══ TESTIMONIOS ═══ -->
-<section class="s wrap" style="background:var(--bg-2);border-radius:var(--radius);margin:0 12px">
-  <div style="text-align:center;padding:0 0 0 0">
-    <span class="sec-eyebrow sr">Lo que dicen</span>
-    <h2 class="sec-title sr">Miles de colombianos<br><span>ya la tienen</span></h2>
+<!-- ═══ BOTÓN WA TRAS CARACTERÍSTICAS ═══ -->
+<section class="wrap" style="text-align:center;padding:8px 24px 40px">
+  <a class="cta-wa sr scale" href="https://wa.me/?text=Hola%2C%20quiero%20pedir%20la%20camiseta%20de%20Colombia%202026%20%F0%9F%87%A8%F0%9F%87%B4" target="_blank" style="display:inline-flex;max-width:460px">
+    <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:#fff;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.523 5.847L.057 23.57a.5.5 0 0 0 .615.612l5.857-1.535A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.878 9.878 0 0 1-5.031-1.374l-.361-.214-3.741.981.998-3.648-.235-.374A9.87 9.87 0 0 1 2.1 12C2.1 6.534 6.534 2.1 12 2.1c5.466 0 9.9 4.434 9.9 9.9 0 5.466-4.434 9.9-9.9 9.9z"/></svg>
+    QUIERO LA MÍA — PEDIR AHORA
+  </a>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══ TESTIMONIOS CARRUSEL ═══ -->
+<section class="s" style="background:var(--bg-2);overflow:hidden">
+  <div class="wrap">
+    <div style="text-align:center">
+      <span class="sec-eyebrow sr">Lo que dicen</span>
+      <h2 class="sec-title sr">+120 colombianos<br><span>ya la tienen</span></h2>
+    </div>
   </div>
-  <div class="reviews-grid">
-    <div class="review sr left">
-      <div class="stars">★★★★★</div>
-      <p>"La calidad es increíble, exactamente igual a la original. La pedí el lunes y el miércoles ya la tenía en casa. Mi hijo no se la quiere quitar."</p>
-      <div class="reviewer">
-        <div class="reviewer-av">JR</div>
-        <div class="reviewer-info"><strong>Juan Rodríguez</strong><span>✔ Compra verificada · Bogotá</span></div>
+  <div class="wrap">
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="reviewTrack">
+
+        <div class="review"><div class="stars">★★★★★</div><p>"La calidad es increíble. La pedí el lunes y el miércoles ya la tenía en casa. Mi hijo no se la quiere quitar."</p><div class="reviewer"><div class="reviewer-av">JR</div><div class="reviewer-info"><strong>Juan Rodríguez</strong><span>✔ Compra verificada · Bogotá</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"Pedí dos, una para mí y otra para mi papá. Los colores son preciosos y el proceso por WhatsApp fue muy rápido y fácil."</p><div class="reviewer"><div class="reviewer-av">LM</div><div class="reviewer-info"><strong>Laura Martínez</strong><span>✔ Compra verificada · Medellín</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"Pensé que era mala calidad pero me sorprendió. El bordado del escudo es perfecto. Ya le recomendé a todos mis amigos."</p><div class="reviewer"><div class="reviewer-av">CA</div><div class="reviewer-info"><strong>Carlos Acosta</strong><span>✔ Compra verificada · Cali</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"La tela es súper fresca y cómoda. Perfecta para ver los partidos. La entrega fue rápida y el precio es muy bueno."</p><div class="reviewer"><div class="reviewer-av">VP</div><div class="reviewer-info"><strong>Valentina Peña</strong><span>✔ Compra verificada · Barranquilla</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"Me llegó en perfecto estado. Los colores son idénticos a la original. La volveré a pedir para regalarle a mi hermano."</p><div class="reviewer"><div class="reviewer-av">SH</div><div class="reviewer-info"><strong>Santiago Herrera</strong><span>✔ Compra verificada · Bucaramanga</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"Excelente calidad, muy buena atención por WhatsApp. Me asesoraron bien con la talla y quedó perfecta. 100% recomendado."</p><div class="reviewer"><div class="reviewer-av">AM</div><div class="reviewer-info"><strong>Adriana Morales</strong><span>✔ Compra verificada · Manizales</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"Compré 3 para toda la familia para ver el Mundial. Llegaron rápido y la calidad superó mis expectativas. ¡Gracias!"</p><div class="reviewer"><div class="reviewer-av">FO</div><div class="reviewer-info"><strong>Felipe Ospina</strong><span>✔ Compra verificada · Pereira</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"El pago contra entrega me dio mucha confianza. La camiseta es hermosa, los colores de Colombia brillan de verdad."</p><div class="reviewer"><div class="reviewer-av">DC</div><div class="reviewer-info"><strong>Daniela Castro</strong><span>✔ Compra verificada · Cartagena</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"Superó todas mis expectativas. La bordado es de alta calidad y la tela no se arruga. Ya hice mi segundo pedido."</p><div class="reviewer"><div class="reviewer-av">MG</div><div class="reviewer-info"><strong>Miguel González</strong><span>✔ Compra verificada · Bogotá</span></div></div></div>
+
+        <div class="review"><div class="stars">★★★★★</div><p>"La atención al cliente es increíble. Me respondieron de inmediato por WhatsApp y me ayudaron a elegir la talla correcta."</p><div class="reviewer"><div class="reviewer-av">CT</div><div class="reviewer-info"><strong>Camila Torres</strong><span>✔ Compra verificada · Cali</span></div></div></div>
+
       </div>
     </div>
-    <div class="review sr">
-      <div class="stars">★★★★★</div>
-      <p>"Pedí dos, una para mí y otra para mi papá. Los colores son preciosos y la tela es súper fresca. El proceso por WhatsApp fue muy rápido."</p>
-      <div class="reviewer">
-        <div class="reviewer-av">LM</div>
-        <div class="reviewer-info"><strong>Laura Martínez</strong><span>✔ Compra verificada · Medellín</span></div>
-      </div>
+    <div class="carousel-nav">
+      <button class="cnav" id="prevBtn">‹</button>
+      <button class="cnav" id="nextBtn">›</button>
     </div>
-    <div class="review sr right">
-      <div class="stars">★★★★★</div>
-      <p>"Pensé que era una tienda de mala calidad pero me sorprendió. El bordado del escudo es perfecto. Ya le recomendé a todos mis amigos."</p>
-      <div class="reviewer">
-        <div class="reviewer-av">CA</div>
-        <div class="reviewer-info"><strong>Carlos Acosta</strong><span>✔ Compra verificada · Cali</span></div>
-      </div>
-    </div>
+    <div class="carousel-dots" id="carouselDots"></div>
+  </div>
+
+  <!-- Botón WA bajo reseñas -->
+  <div style="text-align:center;margin-top:32px">
+    <a class="cta-wa" href="https://wa.me/?text=Hola%2C%20quiero%20pedir%20la%20camiseta%20de%20Colombia%202026%20%F0%9F%87%A8%F0%9F%87%B4" target="_blank" style="display:inline-flex;max-width:460px">
+      <svg viewBox="0 0 24 24" style="width:24px;height:24px;fill:#fff;flex-shrink:0"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.116 1.523 5.847L.057 23.57a.5.5 0 0 0 .615.612l5.857-1.535A11.945 11.945 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.9a9.878 9.878 0 0 1-5.031-1.374l-.361-.214-3.741.981.998-3.648-.235-.374A9.87 9.87 0 0 1 2.1 12C2.1 6.534 6.534 2.1 12 2.1c5.466 0 9.9 4.434 9.9 9.9 0 5.466-4.434 9.9-9.9 9.9z"/></svg>
+      PEDIR MI CAMISETA AHORA
+    </a>
   </div>
 </section>
 
@@ -905,11 +951,64 @@ document.querySelectorAll('.q button').forEach(function(btn){
     }, 4500);
   }
 
-  /* first toast after 4s, then random between 7–14s */
+  /* first toast after 6s, then every 15s */
   setTimeout(function loop(){
     showToast();
-    setTimeout(loop, 7000 + Math.random()*7000);
-  }, 4000);
+    setTimeout(loop, 15000);
+  }, 6000);
+})();
+
+/* ──────────── CARRUSEL RESEÑAS ──────────── */
+(function(){
+  var track = document.getElementById('reviewTrack');
+  var dotsWrap = document.getElementById('carouselDots');
+  if(!track) return;
+
+  var cards = track.querySelectorAll('.review');
+  var total = cards.length;
+  var current = 0;
+  var autoTimer;
+  var cardW = 318; /* 300px + 18px gap */
+
+  /* dots */
+  var visibleDots = Math.ceil(total / 3);
+  for(var i=0;i<visibleDots;i++){
+    var d = document.createElement('span');
+    d.className = 'cdot' + (i===0?' active':'');
+    d.dataset.idx = i;
+    d.addEventListener('click',function(){ goTo(+this.dataset.idx * 3); });
+    dotsWrap.appendChild(d);
+  }
+
+  function goTo(n){
+    current = Math.max(0, Math.min(n, total - 1));
+    var maxOffset = track.scrollWidth - track.parentElement.offsetWidth;
+    var offset = Math.min(current * cardW, maxOffset);
+    track.style.transform = 'translateX(-' + offset + 'px)';
+    /* update dots */
+    var dotIdx = Math.floor(current / 3);
+    dotsWrap.querySelectorAll('.cdot').forEach(function(d,i){ d.classList.toggle('active', i===dotIdx); });
+  }
+
+  document.getElementById('nextBtn').addEventListener('click',function(){
+    clearInterval(autoTimer);
+    goTo(current + 3);
+    startAuto();
+  });
+  document.getElementById('prevBtn').addEventListener('click',function(){
+    clearInterval(autoTimer);
+    goTo(current - 3);
+    startAuto();
+  });
+
+  function startAuto(){
+    autoTimer = setInterval(function(){
+      var next = current + 1;
+      if(next >= total) next = 0;
+      goTo(next);
+    }, 4000);
+  }
+  startAuto();
 })();
 
 /* ──────────── RIPPLE ON CTA ──────────── */
