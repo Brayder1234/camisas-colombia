@@ -406,6 +406,32 @@ a{color:inherit;text-decoration:none}
 .sticky-price{font-family:var(--display);font-size:1.8rem;color:var(--azul);letter-spacing:.04em;white-space:nowrap}
 .sticky .cta-wa{padding:12px 24px;font-size:.88rem;max-width:none;width:auto;animation:none}
 
+/* ═══════════════ TOASTS ═══════════════ */
+.toast{
+  display:flex;align-items:center;gap:12px;
+  background:#fff;border:1.5px solid var(--line);border-radius:14px;
+  padding:12px 16px;
+  box-shadow:0 8px 32px rgba(0,0,0,.13);
+  pointer-events:auto;
+  transform:translateX(-120%);opacity:0;
+  transition:transform .45s cubic-bezier(.34,1.56,.64,1),opacity .35s ease;
+  min-width:260px;
+}
+.toast.show{transform:translateX(0);opacity:1}
+.toast.hide{transform:translateX(-120%);opacity:0;transition:transform .35s ease,opacity .3s ease}
+.toast-avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--amarillo),var(--azul-2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:.95rem;color:#fff;
+  box-shadow:0 3px 10px rgba(0,65,168,.25);
+}
+.toast-body{flex:1;min-width:0}
+.toast-name{font-weight:800;font-size:.88rem;color:var(--ink);display:block;line-height:1.2}
+.toast-msg{font-size:.78rem;color:var(--ink-dim);line-height:1.4;margin-top:2px;display:block}
+.toast-time{font-size:.7rem;color:var(--ink-dim);margin-top:3px;display:block}
+.toast-icon{font-size:1.4rem;flex-shrink:0}
+
 /* ═══════════════ FOOTER ═══════════════ */
 footer{
   text-align:center;padding:32px 20px;color:var(--ink-dim);font-size:.82rem;
@@ -658,6 +684,13 @@ footer{
   </a>
 </div>
 
+<!-- ═══ TOAST NOTIFICACIONES ═══ -->
+<div id="toastWrap" style="
+  position:fixed;bottom:90px;left:16px;z-index:200;
+  display:flex;flex-direction:column-reverse;gap:10px;
+  pointer-events:none;max-width:300px;
+"></div>
+
 <footer>
   <p>© 2025 Camisas Colombia · Todos los derechos reservados</p>
   <p style="margin-top:6px">Hecho con ❤️ para los colombianos</p>
@@ -804,6 +837,69 @@ document.querySelectorAll('.q button').forEach(function(btn){
     }
   });
 });
+
+/* ──────────── TOAST NOTIFICACIONES ──────────── */
+(function(){
+  var pedidos = [
+    {nombre:'Carlos M.',    ciudad:'Bogotá',     ini:'CM', msg:'acaba de pedir 1 camiseta talla L',    icon:'🛍️', hace:'hace 2 min'},
+    {nombre:'Laura P.',     ciudad:'Medellín',   ini:'LP', msg:'acaba de pedir 2 camisetas talla M y S',icon:'🎽', hace:'hace 4 min'},
+    {nombre:'Andrés R.',    ciudad:'Cali',       ini:'AR', msg:'acaba de pedir 1 camiseta talla XL',   icon:'🛍️', hace:'hace 6 min'},
+    {nombre:'María T.',     ciudad:'Barranquilla',ini:'MT',msg:'acaba de pedir 3 camisetas',            icon:'🔥', hace:'hace 1 min'},
+    {nombre:'Juan S.',      ciudad:'Bucaramanga',ini:'JS', msg:'acaba de pedir 1 camiseta talla XXL',  icon:'🎽', hace:'hace 3 min'},
+    {nombre:'Valentina G.', ciudad:'Pereira',    ini:'VG', msg:'acaba de pedir 2 camisetas talla S',  icon:'🛍️', hace:'hace 5 min'},
+    {nombre:'Felipe O.',    ciudad:'Cartagena',  ini:'FO', msg:'acaba de pedir 1 camiseta talla M',   icon:'🎽', hace:'hace 7 min'},
+    {nombre:'Daniela C.',   ciudad:'Manizales',  ini:'DC', msg:'acaba de pedir 4 camisetas',           icon:'🔥', hace:'hace 2 min'},
+    {nombre:'Santiago H.',  ciudad:'Bogotá',     ini:'SH', msg:'acaba de pedir 1 camiseta talla L',   icon:'🛍️', hace:'hace 1 min'},
+    {nombre:'Camila V.',    ciudad:'Medellín',   ini:'CV', msg:'acaba de pedir 2 camisetas talla M',  icon:'🎽', hace:'hace 8 min'},
+  ];
+
+  var wrap = document.getElementById('toastWrap');
+  var idx = 0;
+  var maxVisible = 2;
+  var active = [];
+
+  function showToast(){
+    var p = pedidos[idx % pedidos.length];
+    idx++;
+
+    var toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML =
+      '<div class="toast-avatar">'+p.ini+'</div>'+
+      '<div class="toast-body">'+
+        '<span class="toast-name">'+p.nombre+' · '+p.ciudad+'</span>'+
+        '<span class="toast-msg">'+p.icon+' '+p.msg+'</span>'+
+        '<span class="toast-time">⏱ '+p.hace+'</span>'+
+      '</div>';
+
+    wrap.prepend(toast);
+    active.push(toast);
+
+    /* remove oldest if more than max */
+    if(active.length > maxVisible){
+      var old = active.shift();
+      old.classList.add('hide');
+      setTimeout(function(){ if(old.parentNode) old.parentNode.removeChild(old); }, 400);
+    }
+
+    requestAnimationFrame(function(){
+      requestAnimationFrame(function(){ toast.classList.add('show'); });
+    });
+
+    setTimeout(function(){
+      toast.classList.add('hide');
+      var i = active.indexOf(toast);
+      if(i > -1) active.splice(i,1);
+      setTimeout(function(){ if(toast.parentNode) toast.parentNode.removeChild(toast); }, 400);
+    }, 4500);
+  }
+
+  /* first toast after 4s, then random between 7–14s */
+  setTimeout(function loop(){
+    showToast();
+    setTimeout(loop, 7000 + Math.random()*7000);
+  }, 4000);
+})();
 
 /* ──────────── RIPPLE ON CTA ──────────── */
 document.querySelectorAll('.cta-wa').forEach(function(btn){
