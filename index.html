@@ -448,6 +448,7 @@ footer{
   display:inline-block;
 }
 .size-chip-sm:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.1)}
+.size-chip-sm.active{border-color:var(--azul);background:var(--azul);color:#fff;transform:scale(1.1)}
 
 /* ═══════════════ CARRUSEL RESEÑAS ═══════════════ */
 .carousel-outer{overflow:hidden;margin-top:36px;padding:4px 0 8px}
@@ -550,11 +551,18 @@ footer{
     <div style="margin:18px 0 22px;text-align:center">
       <p style="font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px">👩 Mujer</p>
       <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
-        <div class="size-chip-sm">S</div><div class="size-chip-sm">M</div><div class="size-chip-sm">L</div><div class="size-chip-sm">XL</div>
+        <div class="size-chip-sm" data-gender="Mujer" data-size="S">S</div>
+        <div class="size-chip-sm" data-gender="Mujer" data-size="M">M</div>
+        <div class="size-chip-sm" data-gender="Mujer" data-size="L">L</div>
+        <div class="size-chip-sm" data-gender="Mujer" data-size="XL">XL</div>
       </div>
       <p style="font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px">👨 Hombre</p>
       <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
-        <div class="size-chip-sm">S</div><div class="size-chip-sm">M</div><div class="size-chip-sm">L</div><div class="size-chip-sm">XL</div><div class="size-chip-sm">2XL</div>
+        <div class="size-chip-sm" data-gender="Hombre" data-size="S">S</div>
+        <div class="size-chip-sm" data-gender="Hombre" data-size="M">M</div>
+        <div class="size-chip-sm" data-gender="Hombre" data-size="L">L</div>
+        <div class="size-chip-sm" data-gender="Hombre" data-size="XL">XL</div>
+        <div class="size-chip-sm" data-gender="Hombre" data-size="2XL">2XL</div>
       </div>
     </div>
 
@@ -1086,14 +1094,34 @@ document.querySelectorAll('.q button').forEach(function(btn){
   var asesores = [
     '573052977366'
   ];
-  var msg = encodeURIComponent('Hola, quiero pedir la camiseta de Colombia 2026 🇨🇴');
+
+  /* Selección de talla */
+  var selectedGender = '';
+  var selectedSize   = '';
 
   document.addEventListener('click', function(e){
+    /* Click en chip de talla */
+    var chip = e.target.closest('.size-chip-sm');
+    if(chip && chip.dataset.size){
+      document.querySelectorAll('.size-chip-sm').forEach(function(c){ c.classList.remove('active'); });
+      chip.classList.add('active');
+      selectedGender = chip.dataset.gender;
+      selectedSize   = chip.dataset.size;
+      return;
+    }
+
+    /* Click en botón WhatsApp */
     var btn = e.target.closest('.wa-btn');
     if(!btn) return;
     e.preventDefault();
+
+    var base = 'Hola, quiero pedir la camiseta de Colombia 2026 🇨🇴';
+    var msg  = selectedSize
+      ? base + '\n\nTalla: ' + selectedSize + ' (' + selectedGender + ')'
+      : base;
+
     var num = asesores[Math.floor(Math.random() * asesores.length)];
-    window.open('https://wa.me/' + num + '?text=' + msg, '_blank');
+    window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(msg), '_blank');
   });
 })();
 
