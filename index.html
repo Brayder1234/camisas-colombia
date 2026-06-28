@@ -449,23 +449,32 @@ footer{
 .size-chip-sm:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.1)}
 
 /* ═══════════════ CARRUSEL RESEÑAS ═══════════════ */
-.carousel-wrap{overflow:hidden;position:relative;margin-top:36px}
+.carousel-outer{overflow:hidden;margin-top:36px;padding:4px 0 8px}
 .carousel-track{
-  display:flex;gap:18px;
-  transition:transform .5s cubic-bezier(.22,1,.36,1);
+  display:flex;gap:16px;
+  transition:transform .55s cubic-bezier(.22,1,.36,1);
   will-change:transform;
 }
-.carousel-track .review{min-width:300px;flex-shrink:0}
+.carousel-track .review{
+  min-width:calc(100% - 40px);
+  flex-shrink:0;
+}
+@media(min-width:600px){
+  .carousel-track .review{min-width:calc(50% - 12px)}
+}
+@media(min-width:900px){
+  .carousel-track .review{min-width:calc(33.33% - 12px)}
+}
 .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
 .cdot{width:8px;height:8px;border-radius:50%;background:var(--line-2);
-  cursor:pointer;transition:all .3s ease}
-.cdot.active{background:var(--azul);width:22px;border-radius:4px}
+  cursor:pointer;transition:all .3s ease;border:none;padding:0}
+.cdot.active{background:var(--azul);width:24px;border-radius:4px}
 .carousel-nav{display:flex;justify-content:center;gap:12px;margin-top:16px}
-.cnav{width:40px;height:40px;border-radius:50%;border:1.5px solid var(--line-2);
-  background:#fff;cursor:pointer;font-size:1.1rem;
+.cnav{width:44px;height:44px;border-radius:50%;border:2px solid var(--line-2);
+  background:#fff;cursor:pointer;font-size:1.3rem;line-height:1;
   display:flex;align-items:center;justify-content:center;
-  transition:all .2s;box-shadow:var(--shadow-sm)}
-.cnav:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.1)}
+  transition:all .22s cubic-bezier(.34,1.56,.64,1);box-shadow:var(--shadow-sm);color:var(--ink)}
+.cnav:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.12);box-shadow:var(--shadow)}
 
 /* ═══════════════ SCROLL REVEAL ═══════════════ */
 .sr{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s cubic-bezier(.22,1,.36,1)}
@@ -517,9 +526,9 @@ footer{
       <div class="hero-img-glow"></div>
       <div style="position:relative;display:inline-block">
         <img class="hero-img"
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Flag_of_Colombia.svg/1200px-Flag_of_Colombia.svg.png"
-          alt="Camiseta Selección Colombia 2025"
-          style="border-radius:20px;width:min(320px,80vw);border:3px solid rgba(255,209,0,.4);">
+          src="assets/camisa.png"
+          alt="Camiseta Oficial Selección Colombia 2026"
+          style="width:min(340px,82vw);filter:drop-shadow(0 20px 50px rgba(0,48,135,.2)) drop-shadow(0 4px 14px rgba(0,0,0,.12))">
         <div class="hero-ribbon">🌍 Édición Mundial 2026</div>
       </div>
     </div>
@@ -631,7 +640,7 @@ footer{
     </div>
   </div>
   <div class="wrap">
-    <div class="carousel-wrap">
+    <div class="carousel-outer">
       <div class="carousel-track" id="reviewTrack">
 
         <div class="review"><div class="stars">★★★★★</div><p>"La calidad es increíble. La pedí el lunes y el miércoles ya la tenía en casa. Mi hijo no se la quiere quitar."</p><div class="reviewer"><div class="reviewer-av">JR</div><div class="reviewer-info"><strong>Juan Rodríguez</strong><span>✔ Compra verificada · Bogotá</span></div></div></div>
@@ -655,7 +664,7 @@ footer{
         <div class="review"><div class="stars">★★★★★</div><p>"La atención al cliente es increíble. Me respondieron de inmediato por WhatsApp y me ayudaron a elegir la talla correcta."</p><div class="reviewer"><div class="reviewer-av">CT</div><div class="reviewer-info"><strong>Camila Torres</strong><span>✔ Compra verificada · Cali</span></div></div></div>
 
       </div>
-    </div>
+    </div><!-- /carousel-outer -->
     <div class="carousel-nav">
       <button class="cnav" id="prevBtn">‹</button>
       <button class="cnav" id="nextBtn">›</button>
@@ -964,51 +973,100 @@ document.querySelectorAll('.q button').forEach(function(btn){
   var dotsWrap = document.getElementById('carouselDots');
   if(!track) return;
 
-  var cards = track.querySelectorAll('.review');
+  var cards = Array.from(track.querySelectorAll('.review'));
   var total = cards.length;
   var current = 0;
   var autoTimer;
-  var cardW = 318; /* 300px + 18px gap */
 
-  /* dots */
-  var visibleDots = Math.ceil(total / 3);
-  for(var i=0;i<visibleDots;i++){
-    var d = document.createElement('span');
-    d.className = 'cdot' + (i===0?' active':'');
-    d.dataset.idx = i;
-    d.addEventListener('click',function(){ goTo(+this.dataset.idx * 3); });
-    dotsWrap.appendChild(d);
+  function perPage(){
+    var w = window.innerWidth;
+    if(w >= 900) return 3;
+    if(w >= 600) return 2;
+    return 1;
+  }
+
+  function cardWidth(){
+    return cards[0].offsetWidth + 16; /* card + gap */
+  }
+
+  function numDots(){
+    return Math.ceil(total / perPage());
+  }
+
+  function buildDots(){
+    dotsWrap.innerHTML = '';
+    var nd = numDots();
+    for(var i=0;i<nd;i++){
+      var d = document.createElement('button');
+      d.className = 'cdot' + (i===0?' active':'');
+      d.dataset.idx = i;
+      d.addEventListener('click',function(){ stopAuto(); goTo(+this.dataset.idx * perPage()); startAuto(); });
+      dotsWrap.appendChild(d);
+    }
+  }
+
+  function updateDots(){
+    var dotIdx = Math.floor(current / perPage());
+    dotsWrap.querySelectorAll('.cdot').forEach(function(d,i){
+      d.classList.toggle('active', i===dotIdx);
+    });
   }
 
   function goTo(n){
-    current = Math.max(0, Math.min(n, total - 1));
-    var maxOffset = track.scrollWidth - track.parentElement.offsetWidth;
-    var offset = Math.min(current * cardW, maxOffset);
-    track.style.transform = 'translateX(-' + offset + 'px)';
-    /* update dots */
-    var dotIdx = Math.floor(current / 3);
-    dotsWrap.querySelectorAll('.cdot').forEach(function(d,i){ d.classList.toggle('active', i===dotIdx); });
+    var pp = perPage();
+    var maxIdx = total - pp;
+    current = Math.max(0, Math.min(n, maxIdx));
+    track.style.transform = 'translateX(-' + (current * cardWidth()) + 'px)';
+    updateDots();
   }
 
   document.getElementById('nextBtn').addEventListener('click',function(){
-    clearInterval(autoTimer);
-    goTo(current + 3);
+    stopAuto();
+    var pp = perPage();
+    var next = current + pp;
+    if(next >= total) next = 0;
+    goTo(next);
     startAuto();
   });
   document.getElementById('prevBtn').addEventListener('click',function(){
-    clearInterval(autoTimer);
-    goTo(current - 3);
+    stopAuto();
+    var pp = perPage();
+    var prev = current - pp;
+    if(prev < 0) prev = total - pp;
+    goTo(prev);
     startAuto();
   });
 
   function startAuto(){
     autoTimer = setInterval(function(){
+      var pp = perPage();
       var next = current + 1;
-      if(next >= total) next = 0;
+      if(next > total - pp) next = 0;
       goTo(next);
-    }, 4000);
+    }, 4500);
   }
+  function stopAuto(){ clearInterval(autoTimer); }
+
+  /* touch / swipe */
+  var startX = 0;
+  track.addEventListener('touchstart',function(e){ startX = e.touches[0].clientX; },{passive:true});
+  track.addEventListener('touchend',function(e){
+    var diff = startX - e.changedTouches[0].clientX;
+    if(Math.abs(diff) > 40){
+      stopAuto();
+      if(diff > 0){ var pp=perPage(); goTo(current+pp>=total?0:current+pp); }
+      else { var pp=perPage(); goTo(current-pp<0?total-pp:current-pp); }
+      startAuto();
+    }
+  },{passive:true});
+
+  buildDots();
   startAuto();
+
+  window.addEventListener('resize', function(){
+    buildDots();
+    goTo(0);
+  });
 })();
 
 /* ──────────── RIPPLE ON CTA ──────────── */
