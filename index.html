@@ -462,9 +462,50 @@ footer{
   color:var(--ink-dim);background:#fff;
   transition:all .2s cubic-bezier(.34,1.56,.64,1);
   display:inline-block;
+  user-select:none;
 }
 .size-chip-sm:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.1)}
-.size-chip-sm.active{border-color:var(--azul);background:var(--azul);color:#fff;transform:scale(1.1)}
+.size-chip-sm:active{transform:scale(.95)}
+
+/* ═══════════════ CARRITO HERO ═══════════════ */
+.hero-cart{
+  background:#fff;border:2px solid var(--azul);border-radius:16px;
+  padding:14px 16px;margin:0 0 20px;
+  display:none;
+  animation:fadeUp .3s both;
+}
+.hero-cart.visible{display:block;}
+.hero-cart-title{
+  font-size:.7rem;font-weight:900;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--azul);margin-bottom:10px;display:flex;align-items:center;gap:6px;
+}
+.cart-items{display:flex;flex-direction:column;gap:7px;}
+.cart-item{
+  display:flex;align-items:center;justify-content:space-between;gap:8px;
+  background:var(--bg-2);border-radius:10px;padding:8px 12px;
+}
+.cart-item-label{font-size:.84rem;font-weight:700;color:var(--ink);flex:1}
+.cart-item-label span{font-size:.75rem;font-weight:600;color:var(--ink-dim)}
+.cart-qty{display:flex;align-items:center;gap:6px;}
+.qty-btn{
+  width:26px;height:26px;border-radius:50%;border:1.5px solid var(--line-2);
+  background:#fff;font-size:1rem;font-weight:900;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;line-height:1;
+  color:var(--ink);transition:all .15s;
+}
+.qty-btn:hover{background:var(--azul);color:#fff;border-color:var(--azul);}
+.qty-num{font-size:.9rem;font-weight:900;color:var(--ink);min-width:20px;text-align:center;}
+.cart-item-del{
+  background:none;border:none;cursor:pointer;color:#ccc;font-size:1rem;padding:2px 4px;
+  transition:color .15s;
+}
+.cart-item-del:hover{color:var(--rojo);}
+.cart-total{
+  margin-top:10px;padding-top:10px;border-top:1.5px solid var(--line);
+  display:flex;justify-content:space-between;align-items:center;
+}
+.cart-total-label{font-size:.78rem;font-weight:700;color:var(--ink-dim)}
+.cart-total-price{font-size:1.1rem;font-weight:900;color:var(--azul)}
 
 /* ═══════════════ CARRUSEL RESEÑAS ═══════════════ */
 .carousel-outer{overflow:hidden;margin-top:36px;padding:4px 0 8px}
@@ -693,6 +734,16 @@ footer{
         <div class="size-chip-sm" data-gender="Hombre" data-size="L">L</div>
         <div class="size-chip-sm" data-gender="Hombre" data-size="XL">XL</div>
         <div class="size-chip-sm" data-gender="Hombre" data-size="2XL">2XL</div>
+      </div>
+    </div>
+
+    <!-- CARRITO -->
+    <div class="hero-cart" id="heroCart">
+      <div class="hero-cart-title">🛒 Tu pedido</div>
+      <div class="cart-items" id="cartItems"></div>
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-price" id="cartTotal">$0</span>
       </div>
     </div>
 
@@ -1277,40 +1328,97 @@ document.querySelectorAll('.q button').forEach(function(btn){
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeLb(); });
 })();
 
-/* ──────────── WHATSAPP ASESORES ──────────── */
+/* ──────────── CARRITO + WHATSAPP ──────────── */
 (function(){
-  /* Agrega aquí los números de los asesores (código país incluido) */
-  var asesores = [
-    '573052977366'
-  ];
+  var asesores = ['573052977366'];
+  var PRICE = 99900;
 
-  /* Selección de talla */
-  var selectedGender = '';
-  var selectedSize   = '';
+  /* cart: { 'Mujer-S': {gender, size, qty}, ... } */
+  var cart = {};
+
+  var cartEl    = document.getElementById('heroCart');
+  var itemsEl   = document.getElementById('cartItems');
+  var totalEl   = document.getElementById('cartTotal');
+
+  function fmt(n){ return '$' + n.toLocaleString('es-CO'); }
+
+  function renderCart(){
+    var keys = Object.keys(cart);
+    if(!keys.length){
+      cartEl.classList.remove('visible');
+      return;
+    }
+    cartEl.classList.add('visible');
+    itemsEl.innerHTML = '';
+    var total = 0;
+    keys.forEach(function(k){
+      var item = cart[k];
+      total += item.qty * PRICE;
+      var row = document.createElement('div');
+      row.className = 'cart-item';
+      row.innerHTML =
+        '<span class="cart-item-label">Camiseta Colombia<br><span>' + item.gender + ' · Talla ' + item.size + '</span></span>' +
+        '<div class="cart-qty">' +
+          '<button class="qty-btn" data-key="'+k+'" data-action="minus">−</button>' +
+          '<span class="qty-num">'+item.qty+'</span>' +
+          '<button class="qty-btn" data-key="'+k+'" data-action="plus">+</button>' +
+        '</div>' +
+        '<button class="cart-item-del" data-key="'+k+'">✕</button>';
+      itemsEl.appendChild(row);
+    });
+    totalEl.textContent = fmt(total);
+  }
+
+  function buildMsg(){
+    var keys = Object.keys(cart);
+    if(!keys.length) return 'Hola, quiero información sobre la camiseta de Colombia 2026 🇨🇴';
+    var lines = ['Hola, quiero hacer el siguiente pedido de camiseta Colombia 2026 🇨🇴\n'];
+    keys.forEach(function(k){
+      var item = cart[k];
+      lines.push('• ' + item.qty + ' ud. — Talla ' + item.size + ' (' + item.gender + ')');
+    });
+    var total = Object.values(cart).reduce(function(s,i){ return s + i.qty * PRICE; }, 0);
+    lines.push('\nTotal: ' + fmt(total));
+    return lines.join('\n');
+  }
 
   document.addEventListener('click', function(e){
-    /* Click en chip de talla */
+    /* Chip de talla → agregar al carrito */
     var chip = e.target.closest('.size-chip-sm');
     if(chip && chip.dataset.size){
-      document.querySelectorAll('.size-chip-sm').forEach(function(c){ c.classList.remove('active'); });
-      chip.classList.add('active');
-      selectedGender = chip.dataset.gender;
-      selectedSize   = chip.dataset.size;
+      var key = chip.dataset.gender + '-' + chip.dataset.size;
+      if(cart[key]){
+        cart[key].qty++;
+      } else {
+        cart[key] = {gender: chip.dataset.gender, size: chip.dataset.size, qty: 1};
+      }
+      /* feedback visual en el chip */
+      chip.style.background = 'var(--azul)';
+      chip.style.color = '#fff';
+      chip.style.borderColor = 'var(--azul)';
+      setTimeout(function(){ chip.style.background=''; chip.style.color=''; chip.style.borderColor=''; }, 300);
+      renderCart();
       return;
     }
 
-    /* Click en botón WhatsApp */
+    /* Botones qty y eliminar dentro del carrito */
+    var qb = e.target.closest('.qty-btn');
+    if(qb){
+      var k = qb.dataset.key;
+      if(qb.dataset.action === 'plus'){ cart[k].qty++; }
+      else { cart[k].qty--; if(cart[k].qty <= 0) delete cart[k]; }
+      renderCart();
+      return;
+    }
+    var del = e.target.closest('.cart-item-del');
+    if(del){ delete cart[del.dataset.key]; renderCart(); return; }
+
+    /* Botón WhatsApp */
     var btn = e.target.closest('.wa-btn');
     if(!btn) return;
     e.preventDefault();
-
-    var base = 'Hola, quiero pedir la camiseta de Colombia 2026 🇨🇴';
-    var msg  = selectedSize
-      ? base + '\n\nTalla: ' + selectedSize + ' (' + selectedGender + ')'
-      : base;
-
     var num = asesores[Math.floor(Math.random() * asesores.length)];
-    window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(msg), '_blank');
+    window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(buildMsg()), '_blank');
   });
 })();
 
