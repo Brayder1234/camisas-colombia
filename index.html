@@ -1047,8 +1047,7 @@ document.querySelectorAll('.q button').forEach(function(btn){
   ];
 
   var wrap = document.getElementById('toastWrap');
-  var idx = 0;
-  var maxVisible = 2;
+  var idx = Math.floor(Math.random() * pedidos.length);
   var active = [];
 
   function showToast(){
@@ -1068,8 +1067,8 @@ document.querySelectorAll('.q button').forEach(function(btn){
     wrap.prepend(toast);
     active.push(toast);
 
-    /* remove oldest if more than max */
-    if(active.length > maxVisible){
+    /* keep max 2 visible — remove oldest */
+    if(active.length > 2){
       var old = active.shift();
       old.classList.add('hide');
       setTimeout(function(){ if(old.parentNode) old.parentNode.removeChild(old); }, 400);
@@ -1079,19 +1078,24 @@ document.querySelectorAll('.q button').forEach(function(btn){
       requestAnimationFrame(function(){ toast.classList.add('show'); });
     });
 
+    /* each toast lives 5-8s */
+    var life = 5000 + Math.random() * 3000;
     setTimeout(function(){
       toast.classList.add('hide');
       var i = active.indexOf(toast);
       if(i > -1) active.splice(i,1);
       setTimeout(function(){ if(toast.parentNode) toast.parentNode.removeChild(toast); }, 400);
-    }, 4500);
+    }, life);
+
+    /* schedule next: mostly 12-25s, occasionally 6-10s (burst) */
+    var next = Math.random() < 0.25
+      ? 6000  + Math.random() * 4000   /* burst rápido */
+      : 12000 + Math.random() * 13000; /* ritmo normal */
+    setTimeout(showToast, next);
   }
 
-  /* first toast after 6s, then every 15s */
-  setTimeout(function loop(){
-    showToast();
-    setTimeout(loop, 15000);
-  }, 6000);
+  /* primera notif entre 4-8s */
+  setTimeout(showToast, 4000 + Math.random() * 4000);
 })();
 
 /* ──────────── CARRUSEL RESEÑAS ──────────── */
@@ -1305,11 +1309,11 @@ document.querySelectorAll('.q button').forEach(function(btn){
 (function(){
   var el = document.getElementById('viewerCount');
   if(!el) return;
-  var count = 12;
+  var count = 18;
   setInterval(function(){
-    var change = Math.floor(Math.random() * 3) + 1; /* 1, 2 o 3 */
+    var change = Math.floor(Math.random() * 3) + 1;
     if(Math.random() < 0.5) change = -change;
-    count = Math.min(20, Math.max(5, count + change));
+    count = Math.min(35, Math.max(8, count + change));
     el.textContent = count;
   }, 10000);
 })();
