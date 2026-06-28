@@ -472,6 +472,20 @@ footer{
   transition:all .22s cubic-bezier(.34,1.56,.64,1);box-shadow:var(--shadow-sm);color:var(--ink)}
 .cnav:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.12);box-shadow:var(--shadow)}
 
+/* ═══════════════ VIDEO PRODUCTO ═══════════════ */
+.gallery-video{
+  border-radius:var(--radius);overflow:hidden;
+  margin-bottom:14px;
+  position:relative;background:#000;
+}
+.gallery-video video{
+  width:100%;display:block;
+  max-height:480px;object-fit:cover;
+}
+.gallery-video-label{
+  display:none;
+}
+
 /* ═══════════════ GALERÍA ═══════════════ */
 .gallery-main{
   border-radius:var(--radius);overflow:hidden;
@@ -681,6 +695,14 @@ footer{
   <!-- Foto principal grande -->
   <div class="gallery-main sr scale">
     <img src="assets/camisa-completa.jpg" alt="Camiseta Colombia completa" id="galleryMain">
+  </div>
+
+  <!-- Video del producto -->
+  <div class="gallery-video sr scale">
+    <video controls playsinline preload="metadata" poster="assets/camisa-completa.jpg">
+      <source src="assets/video-camisa.mov" type="video/mp4">
+    </video>
+    <div class="gallery-video-label">▶ Ver video del producto</div>
   </div>
 
   <!-- Miniaturas -->
