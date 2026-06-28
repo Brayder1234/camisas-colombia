@@ -499,7 +499,7 @@ footer{
 <!-- TOPBAR -->
 <div class="topbar">
   <span class="live-dot"></span>
-  <span>🔥 ÉDICIÓN LIMITADA 2025 · Solo quedan <b>pocas unidades</b> disponibles · Envío a todo Colombia</span>
+  <span><span id="viewerCount">12</span> personas viendo ahora · 🔥 ÉDICIÓN LIMITADA 2025 · Envío a todo Colombia</span>
 </div>
 
 <!-- ═══ HERO ═══ -->
@@ -1078,6 +1078,19 @@ document.querySelectorAll('.q button').forEach(function(btn){
   /* Inicio */
   setLayout();
   startAuto();
+})();
+
+/* ──────────── CONTADOR VIEWERS ──────────── */
+(function(){
+  var el = document.getElementById('viewerCount');
+  if(!el) return;
+  var count = 12;
+  setInterval(function(){
+    var change = Math.floor(Math.random() * 3) + 1; /* 1, 2 o 3 */
+    if(Math.random() < 0.5) change = -change;
+    count = Math.min(20, Math.max(5, count + change));
+    el.textContent = count;
+  }, 10000);
 })();
 
 /* ──────────── RIPPLE ON CTA ──────────── */
