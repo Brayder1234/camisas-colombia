@@ -457,14 +457,8 @@ footer{
   will-change:transform;
 }
 .carousel-track .review{
-  min-width:calc(100% - 40px);
   flex-shrink:0;
-}
-@media(min-width:600px){
-  .carousel-track .review{min-width:calc(50% - 12px)}
-}
-@media(min-width:900px){
-  .carousel-track .review{min-width:calc(33.33% - 12px)}
+  /* ancho lo pone JS dinámicamente */
 }
 .carousel-dots{display:flex;justify-content:center;gap:8px;margin-top:20px}
 .cdot{width:8px;height:8px;border-radius:50%;background:var(--line-2);
@@ -969,13 +963,15 @@ document.querySelectorAll('.q button').forEach(function(btn){
 
 /* ──────────── CARRUSEL RESEÑAS ──────────── */
 (function(){
-  var track = document.getElementById('reviewTrack');
-  var dotsWrap = document.getElementById('carouselDots');
-  if(!track) return;
+  var outer   = document.querySelector('.carousel-outer');
+  var track   = document.getElementById('reviewTrack');
+  var dotsWrap= document.getElementById('carouselDots');
+  if(!track || !outer) return;
 
-  var cards = Array.from(track.querySelectorAll('.review'));
-  var total = cards.length;
+  var cards   = Array.from(track.querySelectorAll('.review'));
+  var total   = cards.length;
   var current = 0;
+  var GAP     = 16;
   var autoTimer;
 
   function perPage(){
@@ -985,52 +981,71 @@ document.querySelectorAll('.q button').forEach(function(btn){
     return 1;
   }
 
-  function cardWidth(){
-    return cards[0].offsetWidth + 16; /* card + gap */
+  /* Calcula y aplica anchos reales a cada tarjeta según el contenedor */
+  function setLayout(){
+    var pp    = perPage();
+    var outerW= outer.offsetWidth;
+    var cw    = Math.floor((outerW - GAP * (pp - 1)) / pp);
+    cards.forEach(function(c){ c.style.width = cw + 'px'; });
+    var maxIdx = total - pp;
+    if(current > maxIdx) current = 0;
+    goTo(current, true);
+    buildDots();
   }
 
-  function numDots(){
-    return Math.ceil(total / perPage());
-  }
+  function cardStep(){ return cards[0].offsetWidth + GAP; }
 
   function buildDots(){
     dotsWrap.innerHTML = '';
-    var nd = numDots();
-    for(var i=0;i<nd;i++){
+    var nd = Math.ceil(total / perPage());
+    for(var i = 0; i < nd; i++){
       var d = document.createElement('button');
-      d.className = 'cdot' + (i===0?' active':'');
+      d.className = 'cdot' + (i === 0 ? ' active' : '');
       d.dataset.idx = i;
-      d.addEventListener('click',function(){ stopAuto(); goTo(+this.dataset.idx * perPage()); startAuto(); });
+      d.addEventListener('click', function(){
+        stopAuto();
+        goTo(+this.dataset.idx * perPage());
+        startAuto();
+      });
       dotsWrap.appendChild(d);
     }
+    updateDots();
   }
 
   function updateDots(){
     var dotIdx = Math.floor(current / perPage());
-    dotsWrap.querySelectorAll('.cdot').forEach(function(d,i){
-      d.classList.toggle('active', i===dotIdx);
+    dotsWrap.querySelectorAll('.cdot').forEach(function(d, i){
+      d.classList.toggle('active', i === dotIdx);
     });
   }
 
-  function goTo(n){
-    var pp = perPage();
+  function goTo(n, instant){
+    var pp     = perPage();
     var maxIdx = total - pp;
     current = Math.max(0, Math.min(n, maxIdx));
-    track.style.transform = 'translateX(-' + (current * cardWidth()) + 'px)';
+    var tx = -(current * cardStep()) + 'px';
+    if(instant){
+      track.style.transition = 'none';
+      track.style.transform  = 'translateX(' + tx + ')';
+      track.offsetHeight; /* fuerza reflow */
+      track.style.transition = '';
+    } else {
+      track.style.transform = 'translateX(' + tx + ')';
+    }
     updateDots();
   }
 
-  document.getElementById('nextBtn').addEventListener('click',function(){
+  document.getElementById('nextBtn').addEventListener('click', function(){
     stopAuto();
-    var pp = perPage();
+    var pp   = perPage();
     var next = current + pp;
     if(next >= total) next = 0;
     goTo(next);
     startAuto();
   });
-  document.getElementById('prevBtn').addEventListener('click',function(){
+  document.getElementById('prevBtn').addEventListener('click', function(){
     stopAuto();
-    var pp = perPage();
+    var pp   = perPage();
     var prev = current - pp;
     if(prev < 0) prev = total - pp;
     goTo(prev);
@@ -1039,7 +1054,7 @@ document.querySelectorAll('.q button').forEach(function(btn){
 
   function startAuto(){
     autoTimer = setInterval(function(){
-      var pp = perPage();
+      var pp   = perPage();
       var next = current + 1;
       if(next > total - pp) next = 0;
       goTo(next);
@@ -1047,26 +1062,29 @@ document.querySelectorAll('.q button').forEach(function(btn){
   }
   function stopAuto(){ clearInterval(autoTimer); }
 
-  /* touch / swipe */
+  /* Swipe táctil */
   var startX = 0;
-  track.addEventListener('touchstart',function(e){ startX = e.touches[0].clientX; },{passive:true});
-  track.addEventListener('touchend',function(e){
+  track.addEventListener('touchstart', function(e){ startX = e.touches[0].clientX; }, {passive:true});
+  track.addEventListener('touchend', function(e){
     var diff = startX - e.changedTouches[0].clientX;
-    if(Math.abs(diff) > 40){
-      stopAuto();
-      if(diff > 0){ var pp=perPage(); goTo(current+pp>=total?0:current+pp); }
-      else { var pp=perPage(); goTo(current-pp<0?total-pp:current-pp); }
-      startAuto();
-    }
-  },{passive:true});
+    if(Math.abs(diff) < 40) return;
+    stopAuto();
+    var pp = perPage();
+    if(diff > 0) goTo(current + pp >= total ? 0 : current + pp);
+    else         goTo(current - pp < 0 ? total - pp : current - pp);
+    startAuto();
+  }, {passive:true});
 
-  buildDots();
-  startAuto();
-
+  /* Re-calcular al girar pantalla / redimensionar */
+  var resizeTimer;
   window.addEventListener('resize', function(){
-    buildDots();
-    goTo(0);
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(setLayout, 150);
   });
+
+  /* Inicio */
+  setLayout();
+  startAuto();
 })();
 
 /* ──────────── RIPPLE ON CTA ──────────── */
