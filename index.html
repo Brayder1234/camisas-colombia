@@ -473,6 +473,11 @@ footer{
 .cnav:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.12);box-shadow:var(--shadow)}
 
 /* ═══════════════ VIDEO PRODUCTO ═══════════════ */
+/* ═══════════════ HERO GALLERY ═══════════════ */
+.hero-gallery{
+  max-width:420px;margin:0 auto 32px;
+}
+
 /* ═══════════════ GALERÍA ═══════════════ */
 .gallery-main{
   border-radius:var(--radius);overflow:hidden;
@@ -601,13 +606,34 @@ footer{
 
     <p class="desc">La camiseta más esperada del año. Édición especial Mundial 2026 — diseño oficial, tela premium, los colores que llevan a Colombia a la gloria.</p>
 
-    <div class="hero-img-wrap">
-      <div class="hero-img-glow"></div>
-      <div style="position:relative;display:inline-block">
-        <img class="hero-img"
-          src="assets/camisa.png"
-          alt="Camiseta Oficial Selección Colombia 2026"
-          style="width:min(340px,82vw);filter:drop-shadow(0 20px 50px rgba(0,48,135,.2)) drop-shadow(0 4px 14px rgba(0,0,0,.12))">
+    <!-- Galería en el hero -->
+    <div class="hero-gallery" style="animation:fadeUp .9s .3s both">
+      <div class="gallery-main" id="galleryMain">
+        <img src="assets/camisa-completa.jpg" alt="Camiseta Colombia completa" id="galleryMainImg">
+        <video id="galleryVideo" controls playsinline preload="metadata">
+          <source src="assets/video-camisa.mov" type="video/mp4">
+        </video>
+      </div>
+      <div class="gallery-thumbs">
+        <div class="gallery-thumb active" data-type="img" data-src="assets/camisa-completa.jpg" data-alt="Camiseta completa">
+          <img src="assets/camisa-completa.jpg" alt="Completa">
+        </div>
+        <div class="gallery-thumb" data-type="img" data-src="assets/camisa-escudo.jpg" data-alt="Escudo Federación Colombiana">
+          <img src="assets/camisa-escudo.jpg" alt="Escudo">
+        </div>
+        <div class="gallery-thumb" data-type="img" data-src="assets/camisa-adidas.jpg" data-alt="Logo Adidas bordado">
+          <img src="assets/camisa-adidas.jpg" alt="Adidas">
+        </div>
+        <div class="gallery-thumb" data-type="img" data-src="assets/camisa-cuello.jpg" data-alt="Cuello y terminados">
+          <img src="assets/camisa-cuello.jpg" alt="Cuello">
+        </div>
+        <div class="gallery-thumb" data-type="img" data-src="assets/camisa-etiqueta.jpg" data-alt="Producto oficial licenciado">
+          <img src="assets/camisa-etiqueta.jpg" alt="Etiqueta oficial">
+        </div>
+        <div class="gallery-thumb" data-type="video" data-alt="Video del producto">
+          <img src="assets/camisa-completa.jpg" alt="Video">
+          <div class="gallery-thumb-play">▶</div>
+        </div>
       </div>
     </div>
 
@@ -687,45 +713,6 @@ footer{
 </section>
 
 <div class="divider"></div>
-
-<!-- ═══ GALERÍA ═══ -->
-<section class="s wrap">
-  <div style="text-align:center;margin-bottom:36px">
-    <span class="sec-eyebrow">Fotos reales del producto</span>
-    <h2 class="sec-title">VE CADA <span>DETALLE</span></h2>
-  </div>
-
-  <!-- Área principal: foto o video -->
-  <div class="gallery-main sr scale" id="galleryMain">
-    <img src="assets/camisa-completa.jpg" alt="Camiseta Colombia completa" id="galleryMainImg">
-    <video id="galleryVideo" controls playsinline preload="metadata">
-      <source src="assets/video-camisa.mov" type="video/mp4">
-    </video>
-  </div>
-
-  <!-- Miniaturas -->
-  <div class="gallery-thumbs">
-    <div class="gallery-thumb active" data-type="img" data-src="assets/camisa-completa.jpg" data-alt="Camiseta completa">
-      <img src="assets/camisa-completa.jpg" alt="Completa">
-    </div>
-    <div class="gallery-thumb" data-type="img" data-src="assets/camisa-escudo.jpg" data-alt="Escudo Federación Colombiana">
-      <img src="assets/camisa-escudo.jpg" alt="Escudo">
-    </div>
-    <div class="gallery-thumb" data-type="img" data-src="assets/camisa-adidas.jpg" data-alt="Logo Adidas bordado">
-      <img src="assets/camisa-adidas.jpg" alt="Adidas">
-    </div>
-    <div class="gallery-thumb" data-type="img" data-src="assets/camisa-cuello.jpg" data-alt="Cuello y terminados">
-      <img src="assets/camisa-cuello.jpg" alt="Cuello">
-    </div>
-    <div class="gallery-thumb" data-type="img" data-src="assets/camisa-etiqueta.jpg" data-alt="Producto oficial licenciado">
-      <img src="assets/camisa-etiqueta.jpg" alt="Etiqueta oficial">
-    </div>
-    <div class="gallery-thumb" data-type="video" data-alt="Video del producto">
-      <img src="assets/camisa-completa.jpg" alt="Video">
-      <div class="gallery-thumb-play">▶</div>
-    </div>
-  </div>
-</section>
 
 <div class="divider"></div>
 
