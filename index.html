@@ -1034,16 +1034,25 @@ document.querySelectorAll('.q button').forEach(function(btn){
 /* ──────────── TOAST NOTIFICACIONES ──────────── */
 (function(){
   var pedidos = [
+    /* ~60% Soledad y Barranquilla */
+    {nombre:'María T.',     ciudad:'Barranquilla',ini:'MT'},
+    {nombre:'Johan R.',     ciudad:'Soledad',     ini:'JR'},
+    {nombre:'Paola M.',     ciudad:'Barranquilla',ini:'PM'},
+    {nombre:'Luis C.',      ciudad:'Soledad',     ini:'LC'},
+    {nombre:'Katerine B.',  ciudad:'Barranquilla',ini:'KB'},
+    {nombre:'Éder V.',      ciudad:'Soledad',     ini:'EV'},
+    {nombre:'Natalia A.',   ciudad:'Barranquilla',ini:'NA'},
+    {nombre:'Yessica P.',   ciudad:'Soledad',     ini:'YP'},
+    {nombre:'Ricardo D.',   ciudad:'Barranquilla',ini:'RD'},
+    {nombre:'Melissa O.',   ciudad:'Soledad',     ini:'MO'},
+    /* ~40% resto del país */
     {nombre:'Carlos M.',    ciudad:'Bogotá',      ini:'CM'},
     {nombre:'Laura P.',     ciudad:'Medellín',    ini:'LP'},
     {nombre:'Andrés R.',    ciudad:'Cali',        ini:'AR'},
-    {nombre:'María T.',     ciudad:'Barranquilla',ini:'MT'},
     {nombre:'Juan S.',      ciudad:'Bucaramanga', ini:'JS'},
     {nombre:'Valentina G.', ciudad:'Pereira',     ini:'VG'},
     {nombre:'Felipe O.',    ciudad:'Cartagena',   ini:'FO'},
     {nombre:'Daniela C.',   ciudad:'Manizales',   ini:'DC'},
-    {nombre:'Santiago H.',  ciudad:'Bogotá',      ini:'SH'},
-    {nombre:'Camila V.',    ciudad:'Medellín',    ini:'CV'},
   ];
 
   var wrap = document.getElementById('toastWrap');
