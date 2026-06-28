@@ -476,22 +476,22 @@ footer{
 /* ═══════════════ GALERÍA ═══════════════ */
 .gallery-main{
   border-radius:var(--radius);overflow:hidden;
-  background:#000;
+  background:#f3f4f6;
   margin-bottom:16px;
   cursor:zoom-in;
-  aspect-ratio:4/3;
+  aspect-ratio:3/4;
   position:relative;
 }
 .gallery-main img{
   width:100%;height:100%;
-  object-fit:cover;
+  object-fit:contain;
   transition:transform .4s cubic-bezier(.22,1,.36,1);
   display:block;
 }
 .gallery-main:hover img{transform:scale(1.03)}
 .gallery-main video{
   width:100%;height:100%;
-  object-fit:cover;
+  object-fit:contain;
   display:none;
 }
 .gallery-main.show-video{cursor:default;}
