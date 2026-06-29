@@ -1426,12 +1426,12 @@ document.querySelectorAll('.q button').forEach(function(btn){
     var del = e.target.closest('.cart-item-del');
     if(del){ delete cart[del.dataset.key]; renderCart(); return; }
 
-    /* Botón WhatsApp */
+    /* Botón WhatsApp — asignar href directo para que funcione en móvil */
     var btn = e.target.closest('.wa-btn');
     if(!btn) return;
-    e.preventDefault();
     var num = asesores[Math.floor(Math.random() * asesores.length)];
-    window.open('https://wa.me/' + num + '?text=' + encodeURIComponent(buildMsg()), '_blank');
+    btn.href = 'https://wa.me/' + num + '?text=' + encodeURIComponent(buildMsg());
+    btn.target = '_blank';
   });
 })();
 
