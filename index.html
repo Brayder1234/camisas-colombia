@@ -725,9 +725,9 @@ footer{
       <div>
         <span class="price-tag">Precio especial hoy</span>
         <div style="display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap">
-          <span class="price-antes">$140.000</span>
-          <span class="price-ahora">$99.900</span>
-          <span style="background:var(--rojo);color:#fff;font-weight:900;font-size:.78rem;letter-spacing:.08em;padding:5px 12px;border-radius:50px;white-space:nowrap;box-shadow:0 3px 10px rgba(206,17,38,.3)">-29% OFF</span>
+          <span class="price-antes">$120.000</span>
+          <span class="price-ahora">$70.000</span>
+          <span style="background:var(--rojo);color:#fff;font-weight:900;font-size:.78rem;letter-spacing:.08em;padding:5px 12px;border-radius:50px;white-space:nowrap;box-shadow:0 3px 10px rgba(206,17,38,.3)">-42% OFF</span>
         </div>
       </div>
     </div>
@@ -887,9 +887,9 @@ footer{
     <div>
       <span class="price-tag">Precio especial hoy</span>
       <div style="display:flex;align-items:center;gap:14px;justify-content:center;flex-wrap:wrap">
-        <span class="price-antes">$140.000</span>
-        <span class="price-ahora">$99.900</span>
-        <span style="background:var(--rojo);color:#fff;font-weight:900;font-size:.78rem;letter-spacing:.08em;padding:5px 12px;border-radius:50px;white-space:nowrap;box-shadow:0 3px 10px rgba(206,17,38,.3)">-29% OFF</span>
+        <span class="price-antes">$120.000</span>
+        <span class="price-ahora">$70.000</span>
+        <span style="background:var(--rojo);color:#fff;font-weight:900;font-size:.78rem;letter-spacing:.08em;padding:5px 12px;border-radius:50px;white-space:nowrap;box-shadow:0 3px 10px rgba(206,17,38,.3)">-42% OFF</span>
       </div>
     </div>
   </div>
@@ -936,7 +936,7 @@ footer{
 <!-- ═══ STICKY BAR ═══ -->
 <div class="sticky" id="stickyBar">
   <div class="sticky-info">
-    <span class="sticky-total" id="stickyTotal">$99.900</span>
+    <span class="sticky-total" id="stickyTotal">$70.000</span>
     <span class="sticky-units" id="stickyUnits"></span>
   </div>
   <a class="cta-wa wa-btn" href="#" target="_blank" style="animation:none">
@@ -1348,7 +1348,7 @@ document.querySelectorAll('.q button').forEach(function(btn){
 /* ──────────── CARRITO + WHATSAPP ──────────── */
 (function(){
   var asesores = ['573052977366'];
-  var PRICE = 99900;
+  var PRICE = 70000;
 
   /* cart: { 'Mujer-S': {gender, size, qty}, ... } */
   var cart = {};
@@ -1367,7 +1367,7 @@ document.querySelectorAll('.q button').forEach(function(btn){
     var units = keys.reduce(function(s,k){ return s + cart[k].qty; }, 0);
 
     /* sticky bar */
-    if(stickyTotal) stickyTotal.textContent = units ? fmt(total) : '$99.900';
+    if(stickyTotal) stickyTotal.textContent = units ? fmt(total) : '$70.000';
     if(stickyUnits) stickyUnits.textContent = units ? units + ' prenda' + (units > 1 ? 's' : '') + ' en tu pedido' : '';
 
     if(!keys.length){
