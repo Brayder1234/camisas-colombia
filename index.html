@@ -469,6 +469,17 @@ footer{
 }
 .size-chip-sm:hover{border-color:var(--azul);color:var(--azul);transform:scale(1.1)}
 .size-chip-sm:active{transform:scale(.95)}
+.size-chip-sm.sold-out{
+  opacity:.45;cursor:not-allowed;
+  position:relative;color:var(--ink-dim);
+  background:repeating-linear-gradient(135deg,transparent,transparent 4px,rgba(0,0,0,.08) 4px,rgba(0,0,0,.08) 5px);
+}
+.size-chip-sm.sold-out::after{
+  content:'';
+  position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-45deg);
+  width:80%;height:1.5px;background:var(--rojo);opacity:.6;
+}
+.size-chip-sm.sold-out:hover{transform:none;border-color:var(--line-2);color:var(--ink-dim);}
 
 /* ═══════════════ CARRITO HERO ═══════════════ */
 .hero-cart{
@@ -725,14 +736,14 @@ footer{
     <div style="margin:18px 0 22px;text-align:center">
       <p style="font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px">👩 Mujer</p>
       <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap;margin-bottom:10px">
-        <div class="size-chip-sm" data-gender="Mujer" data-size="S">S</div>
+        <div class="size-chip-sm sold-out" data-gender="Mujer" data-size="S" data-soldout="1">S</div>
         <div class="size-chip-sm" data-gender="Mujer" data-size="M">M</div>
         <div class="size-chip-sm" data-gender="Mujer" data-size="L">L</div>
         <div class="size-chip-sm" data-gender="Mujer" data-size="XL">XL</div>
       </div>
       <p style="font-size:.7rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dim);margin-bottom:8px">👨 Hombre</p>
       <div style="display:flex;gap:7px;justify-content:center;flex-wrap:wrap">
-        <div class="size-chip-sm" data-gender="Hombre" data-size="S">S</div>
+        <div class="size-chip-sm sold-out" data-gender="Hombre" data-size="S" data-soldout="1">S</div>
         <div class="size-chip-sm" data-gender="Hombre" data-size="M">M</div>
         <div class="size-chip-sm" data-gender="Hombre" data-size="L">L</div>
         <div class="size-chip-sm" data-gender="Hombre" data-size="XL">XL</div>
@@ -1399,6 +1410,7 @@ document.querySelectorAll('.q button').forEach(function(btn){
     /* Chip de talla → agregar al carrito */
     var chip = e.target.closest('.size-chip-sm');
     if(chip && chip.dataset.size){
+      if(chip.dataset.soldout) return; /* talla agotada */
       var key = chip.dataset.gender + '-' + chip.dataset.size;
       if(cart[key]){
         cart[key].qty++;
