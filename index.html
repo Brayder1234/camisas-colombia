@@ -1425,6 +1425,13 @@ document.querySelectorAll('.q button').forEach(function(btn){
     if(chip && chip.dataset.size){
       if(chip.dataset.soldout) return; /* talla agotada */
       var key = chip.dataset.gender + '-' + chip.dataset.size;
+      if(typeof fbq !== 'undefined') fbq('track', 'AddToCart', {
+        content_name: 'Camiseta Colombia 2026',
+        content_category: chip.dataset.gender,
+        content_ids: [key],
+        value: PRICE / 1000,
+        currency: 'COP'
+      });
       if(cart[key]){
         cart[key].qty++;
       } else {
