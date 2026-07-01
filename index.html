@@ -50,9 +50,15 @@ a{color:inherit;text-decoration:none}
 /* ═══════════════ BRAND NAV ═══════════════ */
 .brand-nav{
   background:#111;color:#fff;
-  display:flex;align-items:center;justify-content:center;gap:14px;
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
   padding:12px 24px;
   border-bottom:1px solid rgba(255,255,255,.08);
+  position:sticky;top:0;z-index:100;
+}
+.brand-nav-live{
+  display:flex;align-items:center;gap:7px;
+  font-size:.75rem;font-weight:700;color:rgba(255,255,255,.75);
+  white-space:nowrap;
 }
 .brand-nav-logo{
   display:flex;align-items:center;justify-content:center;
@@ -678,9 +684,7 @@ footer{
 <nav class="brand-nav">
   <div class="brand-nav-logo">
     <svg viewBox="0 0 60 60" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
-      <!-- P -->
       <text x="3" y="46" font-family="Georgia, serif" font-size="48" font-weight="700" fill="white" letter-spacing="-4">P</text>
-      <!-- U overlapping -->
       <text x="20" y="46" font-family="Georgia, serif" font-size="38" font-weight="700" fill="white" opacity="0.92">U</text>
     </svg>
   </div>
@@ -688,13 +692,11 @@ footer{
     <span class="brand-nav-name">Pasos Urbanos</span>
     <span class="brand-nav-tagline">Más que estilo, es elegancia</span>
   </div>
+  <div class="brand-nav-live">
+    <span class="live-dot"></span>
+    <span><span id="viewerCount">12</span> viendo ahora</span>
+  </div>
 </nav>
-
-<!-- TOPBAR -->
-<div class="topbar">
-  <span class="live-dot"></span>
-  <span><span id="viewerCount">12</span> personas viendo ahora · 🔥 ÉDICIÓN LIMITADA 2026</span>
-</div>
 <div class="shipping-ticker">
   <div class="shipping-ticker-track">
     <span>🚚 Envío a todo Colombia &nbsp;·&nbsp; 📦 Pago contra entrega &nbsp;·&nbsp; ⚡ Despacho en 24h &nbsp;·&nbsp; 🇨🇴 Entrega a domicilio &nbsp;·&nbsp; 🚚 Envío a todo Colombia &nbsp;·&nbsp; 📦 Pago contra entrega &nbsp;·&nbsp; ⚡ Despacho en 24h &nbsp;·&nbsp; 🇨🇴 Entrega a domicilio &nbsp;·&nbsp;</span>
