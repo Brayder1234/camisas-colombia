@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Camiseta Oficial Colombia 2026 | Édición Mundial</title>
-<meta name="description" content="La nueva camiseta oficial de la Selección Colombia 2026. Edición Mundial. Pídela ahora por WhatsApp.">
+<title>Pasos Urbanos | Camiseta Oficial Colombia 2026</title>
+<meta name="description" content="Pasos Urbanos — Más que estilo, es elegancia. La nueva camiseta oficial de la Selección Colombia 2026. Pídela ahora por WhatsApp.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -46,6 +46,30 @@ a{color:inherit;text-decoration:none}
 
 /* ═══════════════ CANVAS PARTICLES ═══════════════ */
 #particles{position:absolute;inset:0;z-index:0;pointer-events:none}
+
+/* ═══════════════ BRAND NAV ═══════════════ */
+.brand-nav{
+  background:#111;color:#fff;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  padding:12px 24px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.brand-nav-logo{
+  display:flex;align-items:center;justify-content:center;
+  width:44px;height:44px;border-radius:50%;
+  background:#111;border:1.5px solid rgba(255,255,255,.15);
+  flex-shrink:0;
+}
+.brand-nav-text{display:flex;flex-direction:column;line-height:1.2}
+.brand-nav-name{
+  font-family:Georgia,'Times New Roman',serif;
+  font-size:1.05rem;font-weight:700;letter-spacing:.18em;
+  text-transform:uppercase;color:#fff;
+}
+.brand-nav-tagline{
+  font-size:.6rem;letter-spacing:.22em;text-transform:uppercase;
+  color:rgba(255,255,255,.5);font-weight:500;
+}
 
 /* ═══════════════ TOPBAR ═══════════════ */
 .topbar{
@@ -650,6 +674,22 @@ footer{
 </head>
 <body>
 
+<!-- BRAND NAV -->
+<nav class="brand-nav">
+  <div class="brand-nav-logo">
+    <svg viewBox="0 0 60 60" width="36" height="36" xmlns="http://www.w3.org/2000/svg">
+      <!-- P -->
+      <text x="3" y="46" font-family="Georgia, serif" font-size="48" font-weight="700" fill="white" letter-spacing="-4">P</text>
+      <!-- U overlapping -->
+      <text x="20" y="46" font-family="Georgia, serif" font-size="38" font-weight="700" fill="white" opacity="0.92">U</text>
+    </svg>
+  </div>
+  <div class="brand-nav-text">
+    <span class="brand-nav-name">Pasos Urbanos</span>
+    <span class="brand-nav-tagline">Más que estilo, es elegancia</span>
+  </div>
+</nav>
+
 <!-- TOPBAR -->
 <div class="topbar">
   <span class="live-dot"></span>
@@ -953,8 +993,9 @@ footer{
 "></div>
 
 <footer>
-  <p>© 2025 Camisas Colombia · Todos los derechos reservados</p>
-  <p style="margin-top:6px">Hecho con ❤️ para los colombianos</p>
+  <p style="font-family:Georgia,serif;letter-spacing:.12em;font-size:.85rem">PASOS URBANOS</p>
+  <p style="margin-top:4px;font-size:.7rem;letter-spacing:.1em;opacity:.5">MÁS QUE ESTILO, ES ELEGANCIA</p>
+  <p style="margin-top:10px">© 2026 Pasos Urbanos · Todos los derechos reservados</p>
 </footer>
 
 <script>
